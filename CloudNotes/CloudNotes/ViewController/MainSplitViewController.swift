@@ -18,14 +18,22 @@ final class MainSplitViewController: UISplitViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if isAuthorized == false {
-//            beginAuthorizationFlow()
+            beginAuthorizationFlow()
             isAuthorized.toggle()
         }
     }
 
     func beginAuthorizationFlow() {
+        let scopes = [
+                "account_info.read",
+                "account_info.write",
+                "files.content.read",
+                "files.content.write",
+                "files.metadata.read",
+                "files.metadata.write"
+            ]
         // OAuth 2 code flow with PKCE that grants a short-lived token with scopes, and performs refreshes of the token automatically.
-        let scopeRequest = ScopeRequest(scopeType: .user, scopes: ["account_info.read"], includeGrantedScopes: false)
+        let scopeRequest = ScopeRequest(scopeType: .user, scopes: scopes, includeGrantedScopes: false)
         DropboxClientsManager.authorizeFromControllerV2(
             UIApplication.shared,
             controller: self,

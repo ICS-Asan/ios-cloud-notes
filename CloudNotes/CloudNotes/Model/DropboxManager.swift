@@ -9,7 +9,7 @@ struct DropboxManager {
         }
         let client2 = DropboxClient(accessToken: "N20J0VxwGrkAAAAAAAAAAS9-gog_7fDGQMGpspWccY5WdlNPwgx27b8lcK7qCxws")
 
-        client2.files.createFolderV2(path: "/test/path/in/Dropbox/account").response { response, error in
+        client1.files.createFolderV2(path: "/test/path/in/Dropbox/account").response { response, error in
             if let response = response {
                 print(response)
             } else if let error = error {
