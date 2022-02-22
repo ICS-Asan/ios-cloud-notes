@@ -1,8 +1,10 @@
 import UIKit
+import SwiftyDropbox
 
 final class MainSplitViewController: UISplitViewController {
     private let listViewController = MemoListViewController()
     private let contentViewController = MemoContentViewController()
+    var isAuthorized = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -11,6 +13,26 @@ final class MainSplitViewController: UISplitViewController {
         hideKeyboardWhenTappedBackground()
         CoreDataManager.shared.memoListViewController = listViewController
         CoreDataManager.shared.memoContentViewController = contentViewController
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if isAuthorized == false {
+//            beginAuthorizationFlow()
+            isAuthorized.toggle()
+        }
+    }
+
+    func beginAuthorizationFlow() {
+        // OAuth 2 code flow with PKCE that grants a short-lived token with scopes, and performs refreshes of the token automatically.
+        let scopeRequest = ScopeRequest(scopeType: .user, scopes: ["account_info.read"], includeGrantedScopes: false)
+        DropboxClientsManager.authorizeFromControllerV2(
+            UIApplication.shared,
+            controller: self,
+            loadingStatusDelegate: nil,
+            openURL: { (url: URL) -> Void in UIApplication.shared.open(url, options: [:], completionHandler: nil) },
+            scopeRequest: scopeRequest
+        )
     }
     
     func updateMemoContentsView(with memo: Memo) {
