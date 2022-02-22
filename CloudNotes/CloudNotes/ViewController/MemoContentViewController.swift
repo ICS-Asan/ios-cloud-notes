@@ -84,7 +84,7 @@ extension MemoContentViewController: MemoReloadable {
 // MARK: - Popover
 extension MemoContentViewController {
     @objc func presentPopover(sender: UIBarButtonItem) {
-        DropboxManager().createFoloder()
+        DropboxManager().download()
         return
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)

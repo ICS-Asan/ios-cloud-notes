@@ -6,6 +6,12 @@ final class MainSplitViewController: UISplitViewController {
     private let contentViewController = MemoContentViewController()
     var isAuthorized = false
     
+    override func loadView() {
+        super.loadView()
+//        DropboxManager().upload()
+        DropboxManager().download()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMainSplitView()
