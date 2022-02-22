@@ -84,7 +84,7 @@ extension MemoContentViewController: MemoReloadable {
 // MARK: - Popover
 extension MemoContentViewController {
     @objc func presentPopover(sender: UIBarButtonItem) {
-        DropboxManager().download()
+//        DropboxManager().download()
         return
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -151,11 +151,13 @@ extension MemoContentViewController: UITextViewDelegate {
             CoreDataManager.shared.update(data: currentMemo, title: title, body: body) { error in
                 presentErrorAlert(errorMessage: error.localizedDescription)
             }
+//            DropboxManager().upload()
         } else {
             let title = memoDetail
             CoreDataManager.shared.update(data: currentMemo, title: title, body: nil) { error in
                 presentErrorAlert(errorMessage: error.localizedDescription)
             }
+//            DropboxManager().upload()
         }
     }
      

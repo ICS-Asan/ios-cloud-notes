@@ -39,7 +39,7 @@ struct DropboxManager {
             let request = client.files.upload(path: "\(Self.basePath)\($0)", input: data)
                 .response { response, error in
                     if let response = response {
-                        print(response)
+//                        print(response)
                     } else if let error = error {
                         print(error)
                     }
@@ -50,7 +50,7 @@ struct DropboxManager {
         }
     }
     
-    func download() {
+    func download(completion: @escaping () -> Void) {
         guard let client = DropboxClientsManager.authorizedClient else {
             print("No client")
             return
@@ -61,9 +61,10 @@ struct DropboxManager {
                 return coreDataPath
             }
             client.files.download(path: "\(Self.basePath)\($0)", overwrite: true, destination: destination)
-                .response { response, error in
+                .response(queue: .main) { response, error in
                     if let response = response {
-                        print(response)
+//                        print(response)
+                        completion()
                     } else if let error = error {
                         print(error)
                     }
@@ -72,27 +73,6 @@ struct DropboxManager {
                     print(progressData)
                 }
         }
-        
-        
-        
-        
-        
-
-        // Download to Data
-//        client.files.download(path: "\(Self.basePath)/\(Self.index).txt")
-//            .response { response, error in
-//                if let response = response {
-//                    let responseMetadata = response.0
-//                    print(responseMetadata)
-//                    let fileContents = response.1
-//                    print(fileContents)
-////                    fileContents.write
-//                } else if let error = error {
-//                    print(error)
-//                }
-//            }
-//            .progress { progressData in
-//                print(progressData)
-//            }
+//        completion()
     }
 }

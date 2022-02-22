@@ -9,7 +9,7 @@ final class MainSplitViewController: UISplitViewController {
     override func loadView() {
         super.loadView()
 //        DropboxManager().upload()
-        DropboxManager().download()
+
     }
     
     override func viewDidLoad() {
@@ -19,6 +19,10 @@ final class MainSplitViewController: UISplitViewController {
         hideKeyboardWhenTappedBackground()
         CoreDataManager.shared.memoListViewController = listViewController
         CoreDataManager.shared.memoContentViewController = contentViewController
+        DropboxManager().download {
+            self.listViewController.reload()
+            self.contentViewController.reload()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

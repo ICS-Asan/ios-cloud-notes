@@ -37,6 +37,8 @@ class CoreDataManager {
     func load(errorHandler: (Error) -> Void) -> [Memo] {
         do {
             return try context.fetch(Memo.fetchRequest()).reversed()
+            memoListViewController?.reload()
+            memoContentViewController?.reload()
         } catch {
             errorHandler(error)
         }

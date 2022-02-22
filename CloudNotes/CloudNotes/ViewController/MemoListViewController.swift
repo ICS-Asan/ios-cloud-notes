@@ -54,7 +54,10 @@ final class MemoListViewController: UIViewController {
         )
     }
     
+    
     @objc private func createMemo() {
+        DropboxManager().upload()
+        return
         let newMemoIndex = IndexPath(row: 0, section: 0)
         CoreDataManager.shared.create { error in
             presentErrorAlert(errorMessage: error.localizedDescription)
